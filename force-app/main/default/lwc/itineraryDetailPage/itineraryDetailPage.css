@@ -1,0 +1,7 @@
+.box {
+    border: 1px solid #000; /* 1px solid black line */
+    padding: 16px; /* Optional: Add some padding inside the box */
+    border-radius: 4px; /* Optional: Add rounded corners */
+    width: 100%; /* Optional: Set width */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}

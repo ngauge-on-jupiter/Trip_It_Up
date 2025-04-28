@@ -1,0 +1,71 @@
+<template>
+ 
+  <div class="slds-p-around_large slds-grid slds-grid_vertical-align-center slds-grid_align-center slds-wrap">
+  
+    <!-- Itinerary Header -->
+    <div class="slds-size_1-of-1 slds-box slds-box_xx-large slds-m-bottom_large">
+      <div class="slds-grid slds-wrap">
+        
+        <div class="slds-size_1-of-1">
+          <img src={myWrapper.image} alt={myWrapper.name} class="slds-size_1-of-1" style=" object-fit: cover;">
+        </div>
+        
+        <div class="slds-size_1-of-1 slds-p-around_medium">
+          <h1 class="slds-text-heading_large slds-text-color_default slds-text-align_center">{myWrapper.name}</h1>
+        </div>
+        
+      </div>
+    </div>
+  
+    <!-- Itinerary Days -->
+    <template for:each={myWrapper.evDay} for:item="day">
+      <div key={day.dayNo} class="slds-size_1-of-1 slds-box slds-theme_default slds-m-bottom_large">
+        
+        <!-- Day Header -->
+        <div class="slds-grid slds-grid_align-start slds-m-bottom_medium slds-p-around_x-small">
+          <div class="slds-avatar slds-avatar_circle slds-avatar_large slds-m-right_medium">
+            <span class="slds-avatar__initials slds-avatar__initials_inverse" title="Day {day.dayNo}">{day.dayNo}</span>
+          </div>
+          <h2 class="slds-text-heading_medium">Day {day.dayNo}</h2>
+        </div>
+  
+        <!-- Line Items / Events -->
+        <div class="slds-grid slds-wrap slds-grid_vertical-align-start slds-p-left_xx-large">
+          <template for:each={day.sequence} for:item="seq">
+            <div key={seq.lineItems.keyLI} class="slds-size_1-of-1 slds-m-bottom_medium">
+              <div class="slds-media">
+                
+                <!-- Icon Section -->
+                <div class="slds-media__figure">
+                  <span class="slds-icon_container slds-icon-standard-event" title={seq.lineItems.type}>
+                    <lightning-icon icon-name={seq.lineItems.type} alternative-text={seq.lineItems.type} size="small"></lightning-icon>
+                  </span>
+                </div>
+  
+                <!-- Content Section -->
+                <div class="slds-media__body">
+                  <h3 class="slds-text-heading_small">{seq.lineItems.shortTitle}</h3>
+                  <p class="slds-text-body_regular">{seq.lineItems.info}</p>
+  
+                  <!-- Activity Details If Present -->
+                  <template if:true={seq.lineItems.activity}>
+                    <div class="slds-box slds-theme_shade slds-m-top_small">
+                      <h4 class="slds-text-title_bold">{seq.lineItems.activity.actname}</h4>
+                      <p class="slds-text-body_regular">{seq.lineItems.activity.description}</p>
+                      <p class="slds-text-body_small slds-m-top_xx-small">📍 {seq.lineItems.activity.place}</p>
+                      <p class="slds-text-body_small">{seq.lineItems.activity.actinfo}</p>
+                    </div>
+                  </template>
+  
+                </div>
+  
+              </div>
+            </div>
+          </template>
+        </div>
+  
+      </div>
+    </template>
+  
+  </div>
+</template>
