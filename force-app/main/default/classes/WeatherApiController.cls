@@ -9,7 +9,7 @@ public class WeatherApiController {
         res=ht.send(req);
         WeatherWrapper wrapper=(WeatherWrapper)JSON.deserialize(res.getBody(),WeatherWrapper.class);
         System.debug(wrapper.location.name);
-        System.debug(wrapper.forecast.forecastday[0].day.condition.text);
+        System.debug(wrapper.forecast.forecastday[0].day.condition);
     }
     
 }

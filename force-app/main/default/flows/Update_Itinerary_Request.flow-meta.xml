@@ -88,10 +88,10 @@
         <locationX>182</locationX>
         <locationY>1658</locationY>
         <assignmentItems>
-            <assignToReference>outputMessage</assignToReference>
+            <assignToReference>RecordToShow</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue> Thanks, Your itinerary has been successfully updated!</stringValue>
+                <elementReference>itinerary_Record_To_Update</elementReference>
             </value>
         </assignmentItems>
     </assignments>
@@ -281,11 +281,12 @@
         <scale>0</scale>
     </variables>
     <variables>
-        <name>outputMessage</name>
-        <dataType>String</dataType>
+        <name>RecordToShow</name>
+        <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
+        <objectType>Itinerary_Request__c</objectType>
     </variables>
     <variables>
         <name>ReferenceID</name>

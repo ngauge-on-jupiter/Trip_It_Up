@@ -4,7 +4,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Package Booking Flight</description>
     <label>Flight</label>
-    <referenceTo>Flight__c</referenceTo>
+    <referenceTo>FlightListing__c</referenceTo>
     <relationshipLabel>Package Bookings</relationshipLabel>
     <relationshipName>Package_Bookings</relationshipName>
     <required>false</required>

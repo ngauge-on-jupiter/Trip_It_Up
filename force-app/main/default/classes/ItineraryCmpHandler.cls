@@ -16,7 +16,7 @@ public without sharing class ItineraryCmpHandler {
     public static String getItinerary(){
         List<Itinerary_Listing__c> itineryList = [SELECT Id, Name, Destination__c, Is_Active__c, Min_Price__c, 
                                                   Details__c, Max_Price__c, Image_Link__c, Image_ID__c, Interest__c 
-                                                  FROM Itinerary_Listing__c WHERE Is_Active__c=true];
+                                                  FROM Itinerary_Listing__c WHERE IsRequest__c = false];
         Set<Id> itineryIds = new Set<Id>();
         
         for(Itinerary_Listing__c itinery : itineryList){
@@ -25,8 +25,8 @@ public without sharing class ItineraryCmpHandler {
         System.debug(itineryIds.size());
         //this is the part to show ittenary details
         List<LineItem__c> lineItemList = [SELECT Id, Name, Detail__c, Itinerary__c, Short_Title__c, Additional_Information__c, 
-                                          Day__c, Type__c, Sequence__c, HotelListing__c, FlightListing__c, Activity_Listing__c, 
-                                          Duration__c 
+                                          Day__c, Type__c, Sequence__c, Activity_Listing__c, 
+                                          Duration__c
                                           FROM LineItem__c WHERE Itinerary__c IN :itineryIds];
         
         Map<String,List<LineItem__c>> itiIdVsLineItem = new Map<String,List<LineItem__c>>();
@@ -75,14 +75,17 @@ public without sharing class ItineraryCmpHandler {
         // Map<string,LineItem__c> seqVsLineItem = new Map<string,LineItem__c>();
         // Map<String,Map<string,LineItem__c>> dayVsSeq = new Map<String,Map<string,LineItem__c>>();
         // Temporary map to build for one parent
-        Map<String, Map<String, LineItem__c>> dayMap = new Map<String, Map<String, LineItem__c>>();
-        Map<String, Map<String, LineItem>> evtDay = new Map<String, Map<String, LineItem>>();
+        // Map<String, Map<String, LineItem__c>> dayMap = new Map<String, Map<String, LineItem__c>>();
+        // Map<String, Map<String, LineItem>> evtDay = new Map<String, Map<String, LineItem>>();
         
         for(Itinerary_Listing__c itinery : itineryList){
+            Map<String, Map<String, LineItem__c>> dayMap = new Map<String, Map<String, LineItem__c>>();
+        Map<String, Map<String, LineItem>> evtDay = new Map<String, Map<String, LineItem>>();
+        
             Itinerary wpr = new Itinerary();
             wpr.key = itinery.Id;
             wpr.name = itinery.Destination__c;
-            wpr.image = '/sfc/servlet.shepherd/document/download/'+itiIdVsconDocLinkID.get(itinery.Id);
+            wpr.image = 'https://orgfarm-6a88e00ad3-dev-ed.develop.my.salesforce.com/sfc/dist/version/renditionDownload?'+itinery.Image_Link__c; // '/sfc/servlet.shepherd/document/download/'+itiIdVsconDocLinkID.get(itinery.Id);
             //wpr.lineItems =new List<LineItem>();
             //wpr.evtDay = new Map<String,Map<String,LineItem>>();
             wpr.evDay =new List<EventDay>();
@@ -112,15 +115,16 @@ public without sharing class ItineraryCmpHandler {
                     liWpr.dayNo = String.valueOf(li.Day__c);
                     liWpr.type = getIcon(li.Type__c);
                     liWpr.sequence = String.valueOf(li.Sequence__c);
+                    if(actMap.get(li.Activity_Listing__c)!=null){
                     liWpr.activity = new Activity();
-                    //if(li.Activity_Listing__c!=null && li.Activity_Listing__c !=''){
-                    Activity_Listing__c act = actMap.get(li.Activity_Listing__c);
+                    
+                    Activity_Listing__c act = actMap.get(li.Activity_Listing__c)??new Activity_Listing__c();
                     liWpr.activity.keyAct = act.Id;
                     liWpr.activity.name = act.Name;
                     liWpr.activity.info = act.Additional_Info__c;
                     liWpr.activity.description = act.Description__c;
                     liWpr.activity.place = act.Place__c;
-                    //}
+                    }
                     if(evtDay.keySet().contains(liWpr.dayNo))
                     {
                         if(!evtDay.get(liWpr.dayNo).keySet().contains(String.valueOf(li.Sequence__c))){

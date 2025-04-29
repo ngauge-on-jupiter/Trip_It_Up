@@ -13,6 +13,7 @@ public with sharing class ItineraryCmpHandlerTest {
         itineraryList.Max_Price__c = 500;
         itineraryList.Details__c = 'Test Details';
         itineraryList.Image_Link__c = 'test_image_link';
+        itineraryList.IsRequest__c = false;
         insert itineraryList;
         // create activity listing data
         //Name, Description__c, Place__c, Images__c, Additional_Info__c FROM Activity_Listing__c

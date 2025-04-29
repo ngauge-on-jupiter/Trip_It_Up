@@ -5,7 +5,7 @@
     <assignments>
         <name>Assign_Itinerary_Record</name>
         <label>Assign Itinerary Record</label>
-        <locationX>176</locationX>
+        <locationX>50</locationX>
         <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>ItineraryRecord</assignToReference>
@@ -14,8 +14,40 @@
                 <elementReference>Get_Itinerary_Details</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Reference_Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Create_Itinerary_Request.outputmessage</elementReference>
+            </value>
+        </assignmentItems>
     </assignments>
-    <description>Get itinerary conditions updated,,, added selected Itinerary in sessions</description>
+    <decisions>
+        <name>Check_Itineray</name>
+        <label>Check Itinerary</label>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>yes</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Itinerary_Details</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Itinerary_Request</targetReference>
+            </connector>
+            <label>yes</label>
+        </rules>
+    </decisions>
+    <description>Get itinerary conditions updated,,, added selected Itinerary in sessions
+Clone record corrected
+Is Request records skipped
+Reference id output</description>
     <environments>Default</environments>
     <interviewLabel>Display Itineraries {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Get Itinerarys Details</label>
@@ -42,13 +74,13 @@
         <description>get and display itineraries</description>
         <name>Get_Itinerary_Details</name>
         <label>Get Itinerary Details</label>
-        <locationX>176</locationX>
+        <locationX>182</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Session</targetReference>
+            <targetReference>Check_Itineray</targetReference>
         </connector>
-        <filterLogic>or</filterLogic>
+        <filterLogic>(1 OR 2) AND 3</filterLogic>
         <filters>
             <field>Name</field>
             <operator>Contains</operator>
@@ -63,6 +95,13 @@
                 <elementReference>ItineraryName</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>IsRequest__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Itinerary_Listing__c</object>
         <queriedFields>Id</queriedFields>
@@ -74,59 +113,83 @@
         <queriedFields>Interest__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordLookups>
-        <name>Get_Session</name>
-        <label>Get Session</label>
-        <locationX>176</locationX>
-        <locationY>242</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>update_Session</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>SessionInput</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Session__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordUpdates>
-        <name>update_Session</name>
-        <label>update Session</label>
-        <locationX>176</locationX>
-        <locationY>350</locationY>
-        <connector>
-            <targetReference>Assign_Itinerary_Record</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>SessionInput</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Selected_Itinerary__c</field>
-            <value>
-                <elementReference>Get_Itinerary_Details.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Session__c</object>
-    </recordUpdates>
     <start>
-        <locationX>50</locationX>
+        <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Itinerary_Details</targetReference>
         </connector>
     </start>
     <status>Active</status>
+    <subflows>
+        <name>Create_Itinerary_Request</name>
+        <label>Create Itinerary Request</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <connector>
+            <targetReference>Assign_Itinerary_Record</targetReference>
+        </connector>
+        <flowName>Create_Itineray_Request</flowName>
+        <inputAssignments>
+            <name>Contact</name>
+            <value>
+                <elementReference>Email_Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Durationondays</name>
+            <value>
+                <elementReference>Durationondays</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>NoofAdults</name>
+            <value>
+                <elementReference>NoofAdults</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>NoofChildren</name>
+            <value>
+                <elementReference>NoofChildren</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>To_Clone</name>
+            <value>
+                <elementReference>Get_Itinerary_Details</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Travelenddate</name>
+            <value>
+                <elementReference>TravelEndDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Travelstartdate</name>
+            <value>
+                <elementReference>TravelStartDate</elementReference>
+            </value>
+        </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+    <variables>
+        <name>Durationondays</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <description>Email Id of the User</description>
+        <name>Email_Id</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>ItineraryName</name>
         <dataType>String</dataType>
@@ -143,8 +206,38 @@
         <objectType>Itinerary_Listing__c</objectType>
     </variables>
     <variables>
-        <name>SessionInput</name>
+        <name>NoofAdults</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>NoofChildren</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>Reference_Id</name>
         <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>TravelEndDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>TravelStartDate</name>
+        <dataType>Date</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>

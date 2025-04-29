@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentAsset xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isVisibleByExternalUsers>false</isVisibleByExternalUsers>
+    <language>en_US</language>
+    <masterLabel>X20250416_1518_Trip_It_Up_Logo_simpl</masterLabel>
+    <relationships>
+        <organization>
+            <access>VIEWER</access>
+        </organization>
+    </relationships>
+    <versions>
+        <version>
+            <number>1</number>
+            <pathOnClient>20250416_1518_Trip It Up Logo_simple_compose_01jryzwd5heybv0s597xgthrqc.png</pathOnClient>
+        </version>
+    </versions>
+</ContentAsset>

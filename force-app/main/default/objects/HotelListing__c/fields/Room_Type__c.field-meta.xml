@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Room_Type__c</fullName>
+    <description>Rooms of Hotel</description>
+    <label>Room Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Single</fullName>
+                <default>false</default>
+                <label>Single</label>
+            </value>
+            <value>
+                <fullName>Double</fullName>
+                <default>false</default>
+                <label>Double</label>
+            </value>
+            <value>
+                <fullName>Dormitory</fullName>
+                <default>false</default>
+                <label>Dormitory</label>
+            </value>
+            <value>
+                <fullName>Suite</fullName>
+                <default>false</default>
+                <label>Suite</label>
+            </value>
+            <value>
+                <fullName>Deluxe</fullName>
+                <default>false</default>
+                <label>Deluxe</label>
+            </value>
+            <value>
+                <fullName>Executive</fullName>
+                <default>false</default>
+                <label>Executive</label>
+            </value>
+            <value>
+                <fullName>Studio</fullName>
+                <default>false</default>
+                <label>Studio</label>
+            </value>
+            <value>
+                <fullName>Villa</fullName>
+                <default>false</default>
+                <label>Villa</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

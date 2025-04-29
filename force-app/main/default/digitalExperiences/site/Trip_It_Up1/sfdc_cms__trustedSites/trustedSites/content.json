@@ -1,0 +1,40 @@
+{
+  "type" : "sfdc_cms__trustedSites",
+  "title" : "trustedSites",
+  "contentBody" : {
+    "trustedSites" : [ {
+      "isActive" : true,
+      "source" : "https://videos.pexels.com",
+      "sourceName" : "videos.pexels"
+    }, {
+      "isActive" : true,
+      "source" : "https://www.youtube.com",
+      "sourceName" : "youtube"
+    }, {
+      "isActive" : true,
+      "source" : "https://www.youtube.com/watch?v=fEErySYqItI",
+      "sourceName" : "https://www.youtube.com/watch?v=fEErySYq"
+    }, {
+      "isActive" : true,
+      "source" : "https://videos.pexels.com/video-files/3015514/3015514-hd_1920_1080_24fps.mp4",
+      "sourceName" : "https://videos.pexels.com/video-files/30"
+    }, {
+      "isActive" : true,
+      "source" : "https://media.istockphoto.com/id/1126019618/video/couple-pause-above-lake-and-floating-palace-at-sunrise.mp4?s=mp4-640x640-is&k=20&c=8HwiBrZgG_hQ3Ugoty2Io4cV9wR_cK3_44QqXaT_OXQ=",
+      "sourceName" : "https://media.istockphoto.com/id/1126019"
+    }, {
+      "isActive" : true,
+      "source" : "https://videocdn.cdnpk.net/videos/e0b4d5a0-4dba-47f9-9607-c4cb55c69a9c/horizontal/previews/watermarked/large.mp4",
+      "sourceName" : "https://videocdn.cdnpk.net/videos/e0b4d5"
+    }, {
+      "isActive" : true,
+      "source" : "https://videocdn.cdnpk.net",
+      "sourceName" : "net"
+    }, {
+      "isActive" : true,
+      "source" : "https://static.videezy.com/system/resources/previews/000/039/618/original/28_02_09_19.mp4",
+      "sourceName" : "8_02_09_19"
+    } ]
+  },
+  "urlName" : "trustedsites"
+}
